@@ -24,6 +24,7 @@ package com.github.thmarx.cms.modules.ui.extensionpoints;
 
 import com.github.thmarx.cms.api.feature.features.DBFeature;
 import com.github.thmarx.cms.api.module.CMSModuleContext;
+import com.github.thmarx.cms.api.module.CMSRequestContext;
 import com.github.thmarx.cms.modules.ui.services.CommandService;
 import com.github.thmarx.cms.modules.ui.services.FileSystemService;
 import com.github.thmarx.cms.modules.ui.services.FileUserService;
@@ -36,7 +37,7 @@ import com.github.thmarx.modules.api.annotation.Extension;
  * @author t.marx
  */
 @Extension(ModuleLifeCycleExtension.class)
-public class UILifecycleExtension extends ModuleLifeCycleExtension<CMSModuleContext> {
+public class UILifecycleExtension extends ModuleLifeCycleExtension<CMSModuleContext, CMSRequestContext> {
 
 	public static UserService userService;
 	public static FileSystemService fileSystemService;
