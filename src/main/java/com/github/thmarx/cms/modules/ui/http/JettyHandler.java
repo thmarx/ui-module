@@ -22,6 +22,7 @@ package com.github.thmarx.cms.modules.ui.http;
  * #L%
  */
 
+import com.github.thmarx.cms.api.extensions.HttpHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.nio.charset.StandardCharsets;
@@ -34,7 +35,7 @@ import org.eclipse.jetty.server.Request;
  * @author t.marx
  */
 @Slf4j
-public abstract class JettyHandler extends Handler.Abstract {
+public abstract class JettyHandler implements HttpHandler {
 	
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	

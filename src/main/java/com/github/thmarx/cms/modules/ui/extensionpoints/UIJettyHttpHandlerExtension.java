@@ -41,8 +41,6 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.pathmap.PathSpec;
 
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.util.resource.ResourceFactory;
 
 /**
  *
@@ -77,13 +75,6 @@ public class UIJettyHttpHandlerExtension extends HttpHandlerExtensionPoint {
 		Mapping mapping = new Mapping();
 
 		try {
-			ResourceHandler resourceHandler = new ResourceHandler();
-			resourceHandler.setDirAllowed(false);
-			resourceHandler.setBaseResource(ResourceFactory.of(resourceHandler)
-					.newResource(createFileSystem().getPath("/files")));
-			
-			
-			mapping.add(PathSpec.from("/assets/*"), resourceHandler);
 			mapping.add(PathSpec.from("/file-system/list"), new FileSystemListHandler(UILifecycleExtension.fileSystemService));
 			mapping.add(PathSpec.from("/file-system/create"), new FileSystemCreateHandler(UILifecycleExtension.fileSystemService));
 			mapping.add(PathSpec.from("/file-system/delete"), new FileSystemDeleteHandler(UILifecycleExtension.fileSystemService));
