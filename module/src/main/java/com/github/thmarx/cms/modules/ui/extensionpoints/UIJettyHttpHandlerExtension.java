@@ -24,13 +24,11 @@ package com.github.thmarx.cms.modules.ui.extensionpoints;
 import com.github.thmarx.cms.api.extensions.HttpHandlerExtensionPoint;
 import com.github.thmarx.cms.api.extensions.Mapping;
 import com.github.thmarx.cms.api.feature.features.HookSystemFeature;
+import com.github.thmarx.cms.modules.ui.commands.GetContentNodeCommand;
+import com.github.thmarx.cms.modules.ui.commands.IsLockedCommand;
 import com.github.thmarx.cms.modules.ui.http.CommandHandler;
-import com.github.thmarx.cms.modules.ui.http.FileSystemCreateHandler;
-import com.github.thmarx.cms.modules.ui.http.FileSystemDeleteHandler;
-import com.github.thmarx.cms.modules.ui.http.FileSystemListHandler;
-import com.github.thmarx.cms.modules.ui.http.FileSystemReadHandler;
-import com.github.thmarx.cms.modules.ui.http.FileSystemWriteHandler;
 import com.github.thmarx.cms.modules.ui.http.ResourceHandler;
+import com.github.thmarx.cms.modules.ui.services.CommandService;
 import com.github.thmarx.modules.api.annotation.Extension;
 import java.io.IOException;
 import java.net.URI;
@@ -85,7 +83,6 @@ public class UIJettyHttpHandlerExtension extends HttpHandlerExtensionPoint {
 	@Override
 	public Mapping getMapping() {
 		
-		
 //		var menuExt = getContext().get(ModuleManagerFeature.class).moduleManager().extensions(UIMenuExtensionPoint.class);
 //		menuExt.forEach(ext -> System.out.println(ext.getMenuItems()));
 
@@ -93,6 +90,12 @@ public class UIJettyHttpHandlerExtension extends HttpHandlerExtensionPoint {
 		menus.forEach(ext -> System.out.println(ext));
 		
 		Mapping mapping = new Mapping();
+		
+		var commandService = new CommandService();
+		commandService.register("test", (cmd) -> "Hallo Leute!");
+		commandService.register(IsLockedCommand.name, IsLockedCommand.handler);
+		commandService.register(GetContentNodeCommand.NAME, 
+				GetContentNodeCommand.getHandler(getContext(), getRequestContext()));
 
 		try {
 			/*
@@ -104,7 +107,7 @@ public class UIJettyHttpHandlerExtension extends HttpHandlerExtensionPoint {
 			*/
 			mapping.add(PathSpec.from("/manager/*"), new ResourceHandler(getFileSystem(), "/manager"));
 			
-			mapping.add(PathSpec.from("/command"), new CommandHandler(UILifecycleExtension.commandService));
+			mapping.add(PathSpec.from("/command"), new CommandHandler(commandService));
 			
 
 		} catch (Exception ex) {

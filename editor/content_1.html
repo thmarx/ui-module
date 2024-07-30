@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="editor.inject.css" />
+    <script src="editor.inject.js"></script>
+</head>
+
+<body>
+    <div>
+        <h2>Überschrift</h2>
+    </div>
+    <h1 data-cms-editor="text" data-cms-element="headline" class="cms-ui-editable">
+        Das ist die Überschrift!
+        <div class="toolbar">
+            <button onclick="edit(event)">E</button>
+            <button click="edit(event)">U</button>
+            <button click="edit(event)">D</button>
+        </div>
+    </h1>
+
+    <div data-cms-editor="text" data-cms-element="content" class="cms-ui-editable">
+        da ist die neue toolbar
+        <div class="toolbar">
+            <button onclick="edit(event)">E</button>
+            <button click="edit(event)">U</button>
+            <button click="edit(event)">D</button>
+        </div>
+    </div>
+
+    <a href="content_2.html">Content 2</a>
+    <div>
+        <h2>footer</h2>
+    </div>
+</body>
+
+</html>

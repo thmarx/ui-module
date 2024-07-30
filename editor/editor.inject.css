@@ -51,3 +51,38 @@
 .btn-group button:hover {
     background-color: #3e8e41;
 }
+
+.cms-ui-editable:hover {
+    border: 1px solid green;
+    margin:-1px;
+}
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    height: 40px;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    /*
+    padding: 5px;
+    border-radius: 5px;
+    */
+    display: flex;
+    align-items: center;
+}
+
+.toolbar button {
+    margin: 2px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.toolbar button:hover {
+    color: steelblue;
+}

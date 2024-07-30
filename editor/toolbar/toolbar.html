@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Div Toolbars</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        .container {
+            position: relative;
+            /*
+            
+            width: 200px;
+            height: 200px;
+            */
+            border: 1px solid black;
+            margin: 10px;
+            display: inline-block;
+        }
+        
+        .toolbar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: auto;
+            height: 25px; /* Feste Höhe für die Toolbar */
+            display: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: hidden;
+            align-items: center;
+            overflow: visible;
+        }
+        
+        .toolbar button {
+            width: 23px; /* Quadrat-Seitenlänge */
+            height: 23px; /* Quadrat-Seitenlänge */
+            margin: 0 2px;
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toolbar button:hover {
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="toolbar">
+        <button onclick="alert('Button 1 clicked')"><i class="fa-solid fa-home"></i></button>
+        <button onclick="alert('Button 2 clicked')"><i class="fa-solid fa-user"></i></button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="toolbar">
+        <button onclick="alert('Button 3 clicked')"><i class="fa-solid fa-cog"></i></button>
+        <button onclick="alert('Button 4 clicked')"><i class="fa-solid fa-trash"></i></button>
+    </div>
+    Hier ist ein inhalt
+</div>
+
+<br/>
+<h1 class="container">
+    <div class="toolbar">
+        <button onclick="alert('Button 3 clicked')"><i class="fa-solid fa-cog"></i></button>
+        <button onclick="alert('Button 4 clicked')"><i class="fa-solid fa-trash"></i></button>
+    </div>
+    Das ist eine Überschrift
+</h1>
+
+<script>
+    const containers = document.querySelectorAll('.container');
+
+    containers.forEach(container => {
+        const toolbar = container.querySelector('.toolbar');
+
+        container.addEventListener('mouseover', () => {
+            toolbar.style.display = 'flex';
+        });
+
+        container.addEventListener('mouseleave', (event) => {
+            if (!event.relatedTarget || !container.contains(event.relatedTarget)) {
+                toolbar.style.display = 'none';
+            }
+        });
+
+        toolbar.addEventListener('mouseleave', (event) => {
+            if (!event.relatedTarget || !container.contains(event.relatedTarget)) {
+                toolbar.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

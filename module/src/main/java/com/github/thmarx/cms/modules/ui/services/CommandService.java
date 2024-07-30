@@ -42,15 +42,6 @@ public class CommandService {
 		handlers.put(type, handler);
 	}
 	
-	public Optional<?> execute (final String body) {
-		var command = GSON.fromJson(body, Command.class);
-		
-		if (!handlers.containsKey(command.type())) {
-			return Optional.empty();
-		} 
-		return Optional.ofNullable(handlers.get(command.type()).execute(command));
-	}
-	
 	public Optional<?> execute (final Command command) {
 		if (!handlers.containsKey(command.type())) {
 			return Optional.empty();

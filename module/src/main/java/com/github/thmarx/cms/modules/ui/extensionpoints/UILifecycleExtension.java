@@ -25,9 +25,12 @@ package com.github.thmarx.cms.modules.ui.extensionpoints;
 import com.github.thmarx.cms.api.feature.features.DBFeature;
 import com.github.thmarx.cms.api.module.CMSModuleContext;
 import com.github.thmarx.cms.api.module.CMSRequestContext;
+import com.github.thmarx.cms.modules.ui.commands.GetContentNodeCommand;
+import com.github.thmarx.cms.modules.ui.commands.IsLockedCommand;
 import com.github.thmarx.cms.modules.ui.services.CommandService;
 import com.github.thmarx.cms.modules.ui.services.FileSystemService;
 import com.github.thmarx.cms.modules.ui.services.FileUserService;
+import com.github.thmarx.cms.modules.ui.services.LockService;
 import com.github.thmarx.cms.modules.ui.services.UserService;
 import com.github.thmarx.modules.api.ModuleLifeCycleExtension;
 import com.github.thmarx.modules.api.annotation.Extension;
@@ -42,7 +45,7 @@ public class UILifecycleExtension extends ModuleLifeCycleExtension<CMSModuleCont
 	public static UserService userService;
 	public static FileSystemService fileSystemService;
 	
-	public static CommandService commandService;
+	public static LockService lockService;
 	
 	@Override
 	public void init() {
@@ -52,8 +55,7 @@ public class UILifecycleExtension extends ModuleLifeCycleExtension<CMSModuleCont
 	public void activate() {
 		userService = new FileUserService(configuration.getDataDir().getAbsolutePath());
 		fileSystemService = new FileSystemService(getContext().get(DBFeature.class).db());
-		commandService = new CommandService();
-		commandService.register("test", (cmd) -> "Hallo Leute!");
+		lockService = new LockService();
 	}
 
 	@Override

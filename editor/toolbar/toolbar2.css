@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    position: relative;
+    width: 200px;
+    min-height: 200px; /* Ensure the element has a minimum height */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container:hover .toolbar {
+    visibility: visible; /* Show the toolbar on hover */
+}
+
+.pageElement:hover .toolbar {
+    visibility: visible; /* Show the toolbar on hover */
+}
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    height: 25px;
+    z-index: 1000; /* Ensures the toolbar is on top */
+    visibility: hidden; /* Hide the toolbar initially */
+    width: auto; /* Adjust width to fit the buttons */
+}
+
+.toolbar-button {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #ccc;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-size: 16px 16px; /* Size of the SVG icon */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.toolbar-button:hover {
+    background-color: #d0d0d0;
+}
+
+.toolbar-button.icon-a {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M12 2L2 22h20L12 2zm0 3.84L18.93 20H5.07L12 5.84zM11 8h2v7h-2V8zm0 9h2v2h-2v-2z"/></svg>');
+}
+
+.toolbar-button.icon-b {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/><path fill="%23000" d="M13 7h-2v6h6v-2h-4z"/></svg>');
+}
+
+.toolbar-button.icon-c {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+}

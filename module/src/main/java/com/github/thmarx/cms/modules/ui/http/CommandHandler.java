@@ -21,7 +21,10 @@ package com.github.thmarx.cms.modules.ui.http;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+import com.github.thmarx.cms.modules.ui.model.Command;
 import com.github.thmarx.cms.modules.ui.services.CommandService;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,17 +54,18 @@ public class CommandHandler extends JettyHandler {
 		}
 
 		String body = getBody(request);
-		Optional<?> result = commandService.execute(body);
+		var command = GSON.fromJson(body, Command.class);
+		Optional<?> result = commandService.execute(command);
 		
+		Map<String, Object> commandResponse = new HashMap<>();
+		commandResponse.put("type", command.type());
+		if (result.isPresent()) {
+			commandResponse.put("result", result.get());
+		}
 		
 		response.getHeaders().put(HttpHeader.CONTENT_TYPE, "application/json; charset=UTF-8");
-		if (result.isPresent() && result.get() != null) {
-			response.setStatus(200);
-			Content.Sink.write(response, true, GSON.toJson(result.get()), callback);
-		} else {
-			response.setStatus(404);
-			callback.succeeded();
-		}
+		response.setStatus(200);
+		Content.Sink.write(response, true, GSON.toJson(commandResponse), callback);
 		
 
 		return true;
