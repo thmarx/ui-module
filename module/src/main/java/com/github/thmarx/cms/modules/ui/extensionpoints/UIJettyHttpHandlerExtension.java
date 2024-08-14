@@ -27,6 +27,7 @@ import com.github.thmarx.cms.api.feature.features.HookSystemFeature;
 import com.github.thmarx.cms.modules.ui.commands.GetContentNodeCommand;
 import com.github.thmarx.cms.modules.ui.commands.IsLockedCommand;
 import com.github.thmarx.cms.modules.ui.http.CommandHandler;
+import com.github.thmarx.cms.modules.ui.http.HookHandler;
 import com.github.thmarx.cms.modules.ui.http.ResourceHandler;
 import com.github.thmarx.cms.modules.ui.services.CommandService;
 import com.github.thmarx.modules.api.annotation.Extension;
@@ -109,6 +110,7 @@ public class UIJettyHttpHandlerExtension extends HttpHandlerExtensionPoint {
 			
 			mapping.add(PathSpec.from("/command"), new CommandHandler(commandService));
 			
+			mapping.add(PathSpec.from("/hooks"), new HookHandler(getRequestContext().get(HookSystemFeature.class).hookSystem()));
 
 		} catch (Exception ex) {
 			log.error(null, ex);
