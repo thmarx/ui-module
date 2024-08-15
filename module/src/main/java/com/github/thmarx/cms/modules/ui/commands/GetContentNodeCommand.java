@@ -22,24 +22,19 @@ package com.github.thmarx.cms.modules.ui.commands;
  * #L%
  */
 import com.github.thmarx.cms.api.Constants;
-import com.github.thmarx.cms.api.content.ContentResponse;
-import com.github.thmarx.cms.api.db.ContentNode;
 import com.github.thmarx.cms.api.db.DB;
+import com.github.thmarx.cms.api.db.cms.ReadOnlyFile;
 import com.github.thmarx.cms.api.feature.features.DBFeature;
 import com.github.thmarx.cms.api.feature.features.RequestFeature;
 import com.github.thmarx.cms.api.module.CMSModuleContext;
 import com.github.thmarx.cms.api.module.CMSRequestContext;
-import com.github.thmarx.cms.api.request.RequestContext;
 import com.github.thmarx.cms.api.utils.PathUtil;
-import com.github.thmarx.cms.modules.ui.extensionpoints.UILifecycleExtension;
 import com.github.thmarx.cms.modules.ui.services.CommandService;
 import java.net.URI;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  *
@@ -53,7 +48,7 @@ public class GetContentNodeCommand {
 			final CMSModuleContext moduleContext, final CMSRequestContext requestContext
 	) {
 		final DB db = moduleContext.get(DBFeature.class).db();
-		var contentBase = db.getFileSystem().resolve(Constants.Folders.CONTENT);
+		var contentBase = db.getReadOnlyFileSystem().resolve(Constants.Folders.CONTENT);
 		return command -> {
 			var url = (String) command.parameters().get("url");
 
@@ -69,16 +64,16 @@ public class GetContentNodeCommand {
 			}
 
 			var contentPath = contentBase.resolve(path);
-			Path contentFile = null;
-			if (Files.exists(contentPath) && Files.isDirectory(contentPath)) {
+			ReadOnlyFile contentFile = null;
+			if (contentPath.exists() && contentPath.isDirectory()) {
 				// use index.md
 				var tempFile = contentPath.resolve("index.md");
-				if (Files.exists(tempFile)) {
+				if (tempFile.exists()) {
 					contentFile = tempFile;
 				}
 			} else {
 				var temp = contentBase.resolve(path + ".md");
-				if (Files.exists(temp)) {
+				if (temp.exists()) {
 					contentFile = temp;
 				}
 			}
