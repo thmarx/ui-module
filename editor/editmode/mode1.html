@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Overlay mit Markierung und Konsole</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #canvasOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.5);
+            pointer-events: auto; /* Canvas empfängt Ereignisse */
+        }
+
+        /* Beispiel-Styles für divs */
+        [data-cms-element] {
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+            background-color: lightcoral;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+<div data-cms-element="element1"></div>
+<div data-cms-element="element2"></div>
+<div data-cms-element="element3"></div>
+
+<script>
+    // Canvas erstellen und der Seite hinzufügen
+    const canvas = document.createElement('canvas');
+    canvas.id = 'canvasOverlay';
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    resizeCanvas();
+
+    // Fenstergröße überwachen und Canvas anpassen
+    window.addEventListener('resize', resizeCanvas);
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        highlightElements();
+    }
+
+    // Funktion zum Hervorheben der Elemente mit data-cms-element
+    function highlightElements() {
+        // Canvas löschen
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Alle Elemente mit data-cms-element hervorheben
+        document.querySelectorAll('[data-cms-element]').forEach(div => {
+            const rect = div.getBoundingClientRect();
+
+            // Rechteck mit transparenter Füllung zeichnen
+            ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
+            ctx.fillRect(rect.left, rect.top, rect.width, rect.height);
+
+            // Rahmen um das div-Element auf dem Canvas zeichnen
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(rect.left, rect.top, rect.width, rect.height);
+        });
+    }
+
+    // Canvas-Overlay initial hervorheben
+    highlightElements();
+
+    // Fenster-Scrollen und Resizing überwachen, um Hervorhebung zu aktualisieren
+    window.addEventListener('scroll', highlightElements);
+    window.addEventListener('resize', highlightElements);
+
+    // Funktion, um bei Doppelklick den data-cms-element-Wert in die Konsole zu schreiben
+    canvas.addEventListener('dblclick', (e) => {
+        // Durch alle hervorgehobenen Elemente iterieren
+        document.querySelectorAll('[data-cms-element]').forEach(div => {
+            const rect = div.getBoundingClientRect();
+
+            // Überprüfen, ob der Doppelklick innerhalb des Rechtecks war
+            if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                console.log(`Doppelklick auf: ${div.getAttribute('data-cms-element')}`);
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>
