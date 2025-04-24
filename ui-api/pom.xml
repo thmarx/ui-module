@@ -10,12 +10,12 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>com.github.thmarx.cms.module.framework</groupId>
+			<groupId>com.condation.modules.framework</groupId>
 			<artifactId>modules-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.thmarx.cms</groupId>
+			<groupId>com.condation.cms</groupId>
 			<artifactId>cms-api</artifactId>
 			<scope>provided</scope>
 		</dependency>

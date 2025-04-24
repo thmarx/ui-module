@@ -1,8 +1,8 @@
-package com.github.thmarx.cms.modules.ui.api.extensions;
+package com.condation.cms.modules.ui.commands;
 
 /*-
  * #%L
- * ui-api
+ * ui-module
  * %%
  * Copyright (C) 2024 Marx-Software
  * %%
@@ -22,14 +22,20 @@ package com.github.thmarx.cms.modules.ui.api.extensions;
  * #L%
  */
 
-import com.condation.cms.api.extensions.AbstractExtensionPoint;
-import java.util.List;
+import com.condation.cms.modules.ui.extensionpoints.UILifecycleExtension;
+import com.condation.cms.modules.ui.services.CommandService;
 
 /**
  *
  * @author t.marx
  */
-public abstract class UIMenuExtensionPoint extends AbstractExtensionPoint {
+public class LockCommand {
 	
-	public abstract List<String> getMenuItems ();
+	public static final String NAME = "lock";
+	
+	public static final CommandService.CommandHandler HANDLER = command -> {
+		var mode = (String)command.parameters().get("mode");
+		var uri = (String)command.parameters().get("uri");
+		return UILifecycleExtension.lockService.lock(mode, uri);
+	};
 }

@@ -1,10 +1,10 @@
-package com.github.thmarx.cms.modules.ui.api.extensions;
+package com.condation.cms.modules.ui.utils;
 
 /*-
  * #%L
- * ui-api
+ * ui-module
  * %%
- * Copyright (C) 2024 Marx-Software
+ * Copyright (C) 2023 Marx-Software
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,14 +22,30 @@ package com.github.thmarx.cms.modules.ui.api.extensions;
  * #L%
  */
 
-import com.condation.cms.api.extensions.AbstractExtensionPoint;
-import java.util.List;
+import com.google.common.hash.Hashing;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 /**
  *
  * @author t.marx
  */
-public abstract class UIMenuExtensionPoint extends AbstractExtensionPoint {
-	
-	public abstract List<String> getMenuItems ();
+public abstract class Helper {
+	/**
+	 *
+	 * @author marx
+	 */
+	private static final SecureRandom RANDOM = new SecureRandom();
+
+	public static String hash(String value) {
+		return Hashing.sha256()
+				.hashString(value, StandardCharsets.UTF_8)
+				.toString();
+
+	}
+
+	public static String randomString() {
+		return new BigInteger(130, RANDOM).toString(32);
+	}
 }

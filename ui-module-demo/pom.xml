@@ -21,12 +21,12 @@
 			<artifactId>ui-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.github.thmarx.cms.module.framework</groupId>
+			<groupId>com.condation.modules.framework</groupId>
 			<artifactId>modules-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.thmarx.cms</groupId>
+			<groupId>com.condation.cms</groupId>
 			<artifactId>cms-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
@@ -36,7 +36,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>3.7.1</version>
 				<configuration>
 					<descriptors>
 						<descriptor>src/main/assembly/assembly.xml</descriptor>

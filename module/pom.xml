@@ -14,17 +14,6 @@
 	
 	<packaging>jar</packaging>
 	
-	<inceptionYear>2024</inceptionYear>
-	<organization>
-		<name>Marx-Software</name>
-	</organization>
-	<licenses>
-		<license>
-			<name>GPL v3</name>
-			<url>https://www.gnu.org/licenses/gpl-3.0.html</url>
-		</license>
-	</licenses>
-	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<module.id>ui-module</module.id>
@@ -33,21 +22,16 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>com.github.thmarx.cms</groupId>
+			<groupId>com.condation.cms</groupId>
 			<artifactId>cms-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.thmarx.cms.module.framework</groupId>
+			<groupId>com.condation.modules.framework</groupId>
 			<artifactId>modules-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		
-		<dependency>
-			<groupId>com.github.thmarx.cms.modules</groupId>
-			<artifactId>ui-api</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -68,35 +52,17 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.3</version>
+			</plugin>
+			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>3.7.1</version>
 				<configuration>
 					<descriptors>
 						<descriptor>src/main/assembly/assembly.xml</descriptor>

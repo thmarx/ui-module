@@ -1,10 +1,10 @@
-package com.github.thmarx.cms.modules.ui.api.extensions;
+package com.condation.cms.modules.ui.model;
 
 /*-
  * #%L
- * ui-api
+ * ui-module
  * %%
- * Copyright (C) 2024 Marx-Software
+ * Copyright (C) 2023 Marx-Software
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,14 +22,10 @@ package com.github.thmarx.cms.modules.ui.api.extensions;
  * #L%
  */
 
-import com.condation.cms.api.extensions.AbstractExtensionPoint;
-import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author t.marx
  */
-public abstract class UIMenuExtensionPoint extends AbstractExtensionPoint {
-	
-	public abstract List<String> getMenuItems ();
-}
+public record Command (String type, Map<String, Object> parameters) {}

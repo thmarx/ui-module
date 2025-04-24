@@ -1,10 +1,10 @@
-package com.github.thmarx.cms.modules.ui.api.extensions;
+package com.condation.cms.modules.ui.http;
 
 /*-
  * #%L
- * ui-api
+ * ui-module
  * %%
- * Copyright (C) 2024 Marx-Software
+ * Copyright (C) 2023 Marx-Software
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,14 +22,29 @@ package com.github.thmarx.cms.modules.ui.api.extensions;
  * #L%
  */
 
-import com.condation.cms.api.extensions.AbstractExtensionPoint;
-import java.util.List;
+import com.condation.cms.api.extensions.HttpHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.nio.charset.StandardCharsets;
+import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.server.Request;
 
 /**
  *
  * @author t.marx
  */
-public abstract class UIMenuExtensionPoint extends AbstractExtensionPoint {
+@Slf4j
+public abstract class JettyHandler implements HttpHandler {
 	
-	public abstract List<String> getMenuItems ();
+	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	
+	protected String getBody(Request request) {
+		try (var inputStream = Request.asInputStream(request)) {
+
+			return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+		} catch (Exception ex) {
+			log.error("", ex);
+		}
+		return "";
+	}
 }

@@ -1,8 +1,8 @@
-package com.github.thmarx.cms.modules.ui.api.extensions;
+package com.condation.cms.modules.ui.commands;
 
 /*-
  * #%L
- * ui-api
+ * ui-module
  * %%
  * Copyright (C) 2024 Marx-Software
  * %%
@@ -21,15 +21,20 @@ package com.github.thmarx.cms.modules.ui.api.extensions;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
-import com.condation.cms.api.extensions.AbstractExtensionPoint;
-import java.util.List;
+import com.condation.cms.modules.ui.extensionpoints.UILifecycleExtension;
+import com.condation.cms.modules.ui.services.CommandService;
 
 /**
  *
  * @author t.marx
  */
-public abstract class UIMenuExtensionPoint extends AbstractExtensionPoint {
-	
-	public abstract List<String> getMenuItems ();
+public class IsLockedCommand {
+
+	public static final String name = "islocked";
+
+	public static final CommandService.CommandHandler handler = command -> UILifecycleExtension.lockService.isLocked(
+			(String) command.parameters().get("mode"),
+			(String) command.parameters().get("uri")
+	);
+
 }
