@@ -23,10 +23,13 @@ package com.condation.cms.modules.ui.demo;
  */
 import com.condation.cms.api.hooks.HookSystem;
 import com.condation.cms.api.extensions.HookSystemRegisterExtensionPoint;
+import com.condation.cms.api.hooks.ActionContext;
 import com.condation.cms.api.hooks.FilterContext;
 import com.condation.cms.modules.ui.api.FilterContextHelper;
-import com.condation.cms.modules.ui.api.extensions.menu.MenuEntry;
+import com.condation.cms.modules.ui.api.action.HookAction;
+import com.condation.cms.modules.ui.api.menu.MenuEntry;
 import com.condation.modules.api.annotation.Extension;
+import java.util.Map;
 
 /**
  *
@@ -42,11 +45,20 @@ public class MenuHookExtension extends HookSystemRegisterExtensionPoint {
 					entries.add(MenuEntry.builder()
 							.child(MenuEntry.builder().name("Child1").position(0).build())
 							.child(MenuEntry.builder().divider(true).position(1).build())
-							.child(MenuEntry.builder().name("Child1").position(2).build())
+							.child(MenuEntry.builder().name("Child1")
+									.position(2)
+									.action(new HookAction("module/ui/demo/menu/action", Map.of("name", "CondationCMS")))
+									.build())
 							.name("ExampleMenu")
 							.build());
 				}, MenuEntry.class)
 		);
+		
+		hookSystem.registerAction("module/ui/demo/menu/action", (ActionContext<String> context) -> {
+			System.out.println("hook action executed");
+			System.out.println("hello " + context.arguments().get("name"));
+			return "";
+		});
 
 	}
 

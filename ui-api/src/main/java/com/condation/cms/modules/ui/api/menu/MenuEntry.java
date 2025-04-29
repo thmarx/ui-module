@@ -1,4 +1,4 @@
-package com.condation.cms.modules.ui.api.extensions.menu;
+package com.condation.cms.modules.ui.api.menu;
 
 /*-
  * #%L
@@ -24,6 +24,7 @@ package com.condation.cms.modules.ui.api.extensions.menu;
 
 import com.alibaba.fastjson2.TypeReference;
 import com.condation.cms.modules.ui.api.JSONUtil;
+import com.condation.cms.modules.ui.api.action.Action;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class MenuEntry {
 
 	private String name;
 	
+	@Builder.Default
 	private boolean divider = false;
 	
 	@Builder.Default
@@ -46,6 +48,12 @@ public class MenuEntry {
 	
 	@Singular
 	private List<MenuEntry> children;
+	
+	private Action action;
+
+	public String getActionDefinition () {
+		return action != null ? JSONUtil.toString(action) : "";
+	}
 	
 	public boolean hasChildren () {
 		return children != null && ! children.isEmpty();

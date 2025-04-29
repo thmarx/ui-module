@@ -17,8 +17,8 @@
   limitations under the License.
   #L%
 -->
-<#macro menuEntry entry>
-	[#if entry.hasChildren()]
+[#macro menuEntry entry]
+	[#if entry?? && entry.hasChildren()]
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 			   aria-expanded="false">
@@ -26,20 +26,20 @@
 			</a>
 			<ul class="dropdown-menu">
 				[#list entry.getChildren() as child]
-				[#if child.isDivider()]
-				<li><hr class="dropdown-divider"></li>
-				[#else]
-				<li><a class="dropdown-item" href="#" id="editPageAction">${child.name}</a></li>
-				[/#if]
+					[#if child.isDivider()]
+						<li><hr class="dropdown-divider"></li>
+					[#else]
+						<li><a class="dropdown-item" href="#" data-action-definition='${child.getActionDefinition()}'>${child.name}</a></li>
+					[/#if]
 				[/#list]
 			</ul>
 		</li>
 	[#else]
 		<li class="nav-item">
-			<a class="nav-link active" aria-current="page" href="#">${entry.name}</a>
+			<a class="nav-link" aria-current="page" href="#" data-action-definition='${child.getActionDefinition()}'>${entry.name}</a>
 		</li>
 	[/#if]
-</#macro>
+[/#macro]
 <!doctype html>
 <html lang="en">
 	<head>
@@ -62,7 +62,7 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							[#list uihooks.menuEntries() as entry]
-								<@menuEntry entry/>
+								[@menuEntry entry /]
 							[/#list]
 						</ul>
 					</div>
@@ -75,5 +75,7 @@
 
 		<script src="/module/ui-module/manager/boostrap/bootstrap.bundle.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+		
+		<script src="/module/ui-module/manager/js/menu.js"></script>
 	</body>
 </html>

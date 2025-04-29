@@ -23,7 +23,7 @@ package com.condation.cms.modules.ui.utils;
  */
 import com.condation.cms.api.hooks.HookSystem;
 import com.condation.cms.modules.ui.api.JSONUtil;
-import com.condation.cms.modules.ui.api.extensions.menu.MenuEntry;
+import com.condation.cms.modules.ui.api.menu.MenuEntry;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

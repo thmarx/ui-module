@@ -24,7 +24,7 @@ package com.condation.cms.modules.ui.utils;
 import com.condation.cms.api.hooks.FilterContext;
 import com.condation.cms.api.hooks.HookSystem;
 import com.condation.cms.modules.ui.api.FilterContextHelper;
-import com.condation.cms.modules.ui.api.extensions.menu.MenuEntry;
+import com.condation.cms.modules.ui.api.menu.MenuEntry;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
