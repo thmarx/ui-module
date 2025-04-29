@@ -16,14 +16,61 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   #L%
-  -->
+-->
 <!doctype html>
-<html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Manager</title>
+		<link href="/module/ui-module/manager/boostrap/bootstrap.min.css" rel="stylesheet" />
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 	</head>
 	<body>
-		<div>UI Menu</div>
-		<iframe src="/" style="position: absolute; height: 100%; border: none" ></iframe>
+		<div id="menu">
+			<nav class="navbar navbar-expand-lg navbar-expand-md bg-light">
+				<div class="container-fluid">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+							data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							[#list uihooks.menuEntries() as entry]
+							[#if entry.hasChildren()]
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								   aria-expanded="false">
+									${entry.name}
+								</a>
+								<ul class="dropdown-menu">
+									[#list entry.getChildren() as child]
+									[#if child.isDivider()]
+									<li><hr class="dropdown-divider"></li>
+									[#else]
+									<li><a class="dropdown-item" href="#" id="editPageAction">${child.name}</a></li>
+									[/#if]
+									[/#list]
+								</ul>
+							</li>
+							[#else]
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="#">${entry.name}</a>
+							</li>
+							[/#if]
+							[/#list]
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div id="content">
+			<iframe src="/?preview=true" style="position: absolute; height: 100%; border: none" ></iframe>
+		</div>
+
+		<script src="/module/ui-module/manager/boostrap/bootstrap.bundle.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
 	</body>
 </html>

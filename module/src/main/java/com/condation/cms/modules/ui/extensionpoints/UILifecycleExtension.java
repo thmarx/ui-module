@@ -31,6 +31,7 @@ import com.condation.cms.modules.ui.services.FileSystemService;
 import com.condation.cms.modules.ui.services.FileUserService;
 import com.condation.cms.modules.ui.services.LockService;
 import com.condation.cms.modules.ui.services.UserService;
+import com.condation.cms.modules.ui.utils.TemplateEngine;
 
 
 /**
@@ -45,6 +46,8 @@ public class UILifecycleExtension extends ModuleLifeCycleExtension<CMSModuleCont
 	
 	public static LockService lockService;
 	
+	public static TemplateEngine templateEngine;
+	
 	@Override
 	public void init() {
 	}
@@ -54,6 +57,7 @@ public class UILifecycleExtension extends ModuleLifeCycleExtension<CMSModuleCont
 		userService = new FileUserService(configuration.getDataDir().getAbsolutePath());
 		fileSystemService = new FileSystemService(getContext().get(DBFeature.class).db());
 		lockService = new LockService();
+		templateEngine = new TemplateEngine();
 	}
 
 	@Override

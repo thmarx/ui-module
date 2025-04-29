@@ -1,10 +1,10 @@
-package com.github.thmarx.cms.modules.ui.module.demo;
+package com.condation.cms.modules.ui.api;
 
 /*-
  * #%L
- * ui-module-demo
+ * ui-api
  * %%
- * Copyright (C) 2024 Marx-Software
+ * Copyright (C) 2024 - 2025 Condation
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,23 +22,25 @@ package com.github.thmarx.cms.modules.ui.module.demo;
  * #L%
  */
 
-import com.github.thmarx.cms.api.extensions.HookSystemRegisterExtentionPoint;
-import com.github.thmarx.cms.api.hooks.HookSystem;
-import com.github.thmarx.modules.api.annotation.Extension;
-import java.util.List;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONWriter;
+import com.alibaba.fastjson2.TypeReference;
 
 /**
  *
- * @author t.marx
+ * @author thorstenmarx
  */
-@Extension(HookSystemRegisterExtentionPoint.class)
-public class MenuHookExtension extends HookSystemRegisterExtentionPoint {
-
-	@Override
-	public void register(HookSystem hs) {
-		hs.registerAction("module/ui/menu", (context) -> {
-			return List.of("eins", "zwei");
-		});
+public class JSONUtil {
+	
+	public static String toString (Object object) {
+		return JSON.toJSONString(object, JSONWriter.Feature.WriteClassName);
 	}
 	
+	public static <T> T fromString (String value, Class<T> type) {
+		return JSON.parseObject(value, type);
+	}
+	
+	public static <T> T fromString (String value, TypeReference<T> type) {
+		return JSON.parseObject(value, type);
+	}
 }

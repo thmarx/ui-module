@@ -3,7 +3,7 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.thmarx.cms.modules</groupId>
+	<groupId>com.condation.cms.modules</groupId>
 	<artifactId>ui-module-parent</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
@@ -21,6 +21,8 @@
 	
 	<modules>
 		<module>module</module>
+		<module>ui-api</module>
+		<module>ui-module-demo</module>
 	</modules>
 	
 	<properties>
@@ -36,6 +38,12 @@
 		<dependencies>
 
 			<dependency>
+				<groupId>com.condation.cms.modules</groupId>
+				<artifactId>ui-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
 				<groupId>com.condation.cms</groupId>
 				<artifactId>cms-api</artifactId>
 				<version>${cms.version}</version>
@@ -47,6 +55,11 @@
 			</dependency>
 
 			<dependency>
+				<groupId>com.alibaba.fastjson2</groupId>
+				<artifactId>fastjson2</artifactId>
+				<version>2.0.57</version>
+			</dependency>
+			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>33.4.8-jre</version>
@@ -55,6 +68,11 @@
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
 				<version>2.13.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>2.3.34</version>
 			</dependency>
 
 			<dependency>

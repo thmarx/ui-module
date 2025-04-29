@@ -31,6 +31,7 @@ import com.condation.cms.modules.ui.http.CommandHandler;
 import com.condation.cms.modules.ui.http.HookHandler;
 import com.condation.cms.modules.ui.http.ResourceHandler;
 import com.condation.cms.modules.ui.services.CommandService;
+import com.condation.cms.modules.ui.utils.UIHooks;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -84,11 +85,11 @@ public class UIJettyHttpHandlerExtension extends HttpHandlerExtensionPoint {
 	@Override
 	public Mapping getMapping() {
 		
-//		var menuExt = getContext().get(ModuleManagerFeature.class).moduleManager().extensions(UIMenuExtensionPoint.class);
-//		menuExt.forEach(ext -> System.out.println(ext.getMenuItems()));
-
-		var menus = getRequestContext().get(HookSystemFeature.class).hookSystem().execute("module/ui/menu").results();
-		menus.forEach(ext -> System.out.println(ext));
+		var hookSystem = getRequestContext().get(HookSystemFeature.class).hookSystem();
+		var menus = new UIHooks(hookSystem).menuEntries();
+		menus.forEach(ext -> System.out.println("hook: " + ext));
+		
+		
 		
 		Mapping mapping = new Mapping();
 		
@@ -106,7 +107,7 @@ public class UIJettyHttpHandlerExtension extends HttpHandlerExtensionPoint {
 			mapping.add(PathSpec.from("/file-system/read"), new FileSystemReadHandler(UILifecycleExtension.fileSystemService));
 			mapping.add(PathSpec.from("/file-system/write"), new FileSystemWriteHandler(UILifecycleExtension.fileSystemService));
 			*/
-			mapping.add(PathSpec.from("/manager/*"), new ResourceHandler(getFileSystem(), "/manager"));
+			mapping.add(PathSpec.from("/manager/*"), new ResourceHandler(hookSystem, getFileSystem(), "/manager"));
 			
 			mapping.add(PathSpec.from("/command"), new CommandHandler(commandService));
 			

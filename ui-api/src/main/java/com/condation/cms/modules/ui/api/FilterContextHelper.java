@@ -1,10 +1,10 @@
-package com.github.thmarx.cms.modules.ui.module.demo;
+package com.condation.cms.modules.ui.api;
 
 /*-
  * #%L
- * ui-module-demo
+ * ui-api
  * %%
- * Copyright (C) 2024 Marx-Software
+ * Copyright (C) 2024 - 2025 Condation
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,20 +22,20 @@ package com.github.thmarx.cms.modules.ui.module.demo;
  * #L%
  */
 
-import com.github.thmarx.cms.modules.ui.api.extensions.UIMenuExtensionPoint;
-import com.github.thmarx.modules.api.annotation.Extension;
+import com.alibaba.fastjson2.TypeReference;
+import com.condation.cms.api.hooks.FilterContext;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  *
- * @author t.marx
+ * @author thorstenmarx
  */
-@Extension(UIMenuExtensionPoint.class)
-public class DemoUIMenuExtension extends UIMenuExtensionPoint {
+public class FilterContextHelper {
 
-	@Override
-	public List<String> getMenuItems() {
-		return List.of("Demo1", "Demo2");
+	public static <T> String filterList(FilterContext<String> context, Consumer<List<T>> consumer, Class<T> clazz) {
+		List<T> list = JSONUtil.fromString(context.value(), new TypeReference<List<T>>() {});
+		consumer.accept(list);
+		return JSONUtil.toString(list);
 	}
-	
 }

@@ -77,7 +77,7 @@ public class GetContentNodeCommand {
 			}
 
 			Map<String, Object> result = new HashMap<>();
-			result.put("url", "url");
+			result.put("url", url);
 			if (contentFile != null) {
 				result.put("uri", PathUtil.toRelativeFile(contentFile, contentBase));
 			}
